@@ -52,6 +52,7 @@ def main():
     basepath = ""
     if len(sys.argv) > 1:
         basepath = sys.argv[1]
+        basepath = "/" + basepath.rstrip("/").lstrip("/") + "/"
     else:
         basepath = "/"
     copy_folder("static", "docs")
