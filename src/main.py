@@ -16,6 +16,7 @@ def generate_pages_recursive(dir_path_content, template_path, dest_dir_path, bas
         else:
             generate_pages_recursive(os.path.join(dir_path_content, d), template_path, os.path.join(dest_dir_path, d), basepath)
 
+
 def generate_page(from_path, template_path, dest_path, basepath):
     print("Generating page from ", from_path, " to ", dest_path, "using ", template_path)
     f = open(from_path, "r")
