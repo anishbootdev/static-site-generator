@@ -4,6 +4,16 @@ import shutil
 from markdown_to_html import markdown_to_html_node
 from extract_title import extract_title
 
+def generate_pages_recursive(dir_path_content, template_path, dest_dir_path):
+    dirs = os.listdir(dir_path_content)
+    for d in dirs:
+        if os.path.isfile(os.path.join(dir_path_content, d)):
+            if d.endswith(".md"):
+                from_path = os.path.join(dir_path_content, d)
+                dest_path = os.path.join(dest_dir_path, d[:-3] + ".html")
+                generate_page(from_path, template_path, dest_path)
+        else:
+            generate_pages_recursive(os.path.join(dir_path_content, d), template_path, os.path.join(dest_dir_path, d))
 
 def generate_page(from_path, template_path, dest_path):
     print("Generating page from ", from_path, " to ", dest_path, "using ", template_path)
@@ -36,7 +46,6 @@ def copy_folder(static, public):
             
 def main():
     copy_folder("static", "public")
-    generate_page("content/index.md", "template.html", "public/index.html")
-
+    generate_pages_recursive("content", "template.html", "public")
 
 main()
